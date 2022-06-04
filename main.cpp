@@ -10,10 +10,9 @@ MSSV: 20110172
 #include <iomanip>
 using namespace std;
 
-#include "helper.h"
-#include "stack.h"
 #include "Parser.cpp"
-#include "expression.h"
+#include "Stack.cpp"
+#include "Expression.cpp"
 
 int main() {
     string input;
