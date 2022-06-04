@@ -1,3 +1,9 @@
+/*
+Bai 2
+Ten: Vo Ha Giang
+MSSV: 20110172
+*/
+
 #include <iostream>
 #include <vector>
 #include <string>
