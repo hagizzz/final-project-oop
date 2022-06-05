@@ -40,6 +40,8 @@ void printFormat(double x) {
 
     if (dot != string::npos) cout << s.substr(0, max(dot,last+1));
     else cout << s;
+
+    cout << endl;
 }
 
 void throwErr(string msg) {

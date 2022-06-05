@@ -14,6 +14,7 @@ private:
     int prec(string);
     void evalInfix();
     void evalOperand(string);
+
 public:
     Expression(string);
     double evaluate();
