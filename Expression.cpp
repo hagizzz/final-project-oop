@@ -1,13 +1,7 @@
 #pragma once
-#include <iostream>
-#include <vector>
-#include <string>
-#include <math.h>
 using namespace std;
 
 #include "Expression.h"
-#include "Parser.h"
-#include "helper.h"
 
 bool Expression::isNum(string s) {
     for (int i = 0; i < s.length(); i++) {

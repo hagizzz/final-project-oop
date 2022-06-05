@@ -1,6 +1,5 @@
 #pragma once
 #include "Parser.h"
-#include "helper.h"
 
 Parser::Parser(string str) {
     input = str;

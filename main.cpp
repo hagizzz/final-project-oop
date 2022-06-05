@@ -3,16 +3,13 @@ Bai 2
 Ten: Vo Ha Giang
 MSSV: 20110172
 */
-
-#include <iostream>
-#include <vector>
-#include <string>
-#include <iomanip>
-using namespace std;
-
+#include "lib.h"
+#include "helper.cpp"
 #include "Parser.cpp"
 #include "Stack.cpp"
 #include "Expression.cpp"
+
+using namespace std;
 
 int main() {
     string input;
