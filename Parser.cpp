@@ -11,7 +11,7 @@ vector<string> Parser::parse() {
     while (pos <= input.length()) {
         skipWhitespace();
 
-        if (isSign(ch)) {
+        if (isSymbol(ch)) {
             tokens.push_back(toStr(ch));
             readChar();
 
@@ -34,7 +34,7 @@ vector<string> Parser::parse() {
 }
 
 void Parser::readChar() {
-    if (pos >= input.length()) ch = 0; // NULL char
+    if (pos >= input.length()) ch = 0;  // NULL char
 
     ch = input[pos];
     pos++;

@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <sstream>
+#include <math.h>
 using namespace std;
 
 string toStr(char ch) {
@@ -9,10 +10,10 @@ string toStr(char ch) {
     return s;
 }
 
-bool isSign(char ch) {
-    vector<char> signs{'+', '-', '*', '/', '%', '^', '(', ')'};
-    for (int i = 0; i < signs.size(); i++) {
-        if (ch == signs[i]) return true;
+bool isSymbol(char ch) {
+    vector<char> symbols{'+', '-', '*', '/', '%', '^', '(', ')'};
+    for (int i = 0; i < symbols.size(); i++) {
+        if (ch == symbols[i]) return true;
     }
     return false;
 }
@@ -35,6 +36,11 @@ bool inVector(vector<string>& arr, string s) {
 }
 
 void printFormat(double x) {
+    if (x > pow(2, 100)) {
+        cout << fixed << x << endl;
+        return;
+    }
+
     string s = to_string(x);
     size_t dot = s.find_first_of('.'), last = s.find_last_not_of(".0");
 

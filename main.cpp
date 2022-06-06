@@ -4,10 +4,7 @@ Ten: Vo Ha Giang
 MSSV: 20110172
 */
 #include "lib.h"
-#include "helper.cpp"
-#include "Parser.cpp"
-#include "Stack.cpp"
-#include "Expression.cpp"
+#include "include.h"
 
 using namespace std;
 
