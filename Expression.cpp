@@ -38,7 +38,16 @@ int Expression::prec(string op) {
 
 void Expression::evalInfix() {
     string op = operators.pop();
+    if (op == "(") {
+        throwErr("token ')' is not found");
+    }
+    if (operands.isEmpty()) {
+        throwErr("Missing left hand of '" + op + "' operator");
+    }
     double right = operands.pop();
+    if (operands.isEmpty()) {
+        throwErr("Missing right hand of '" + op + "' operator");
+    }
     double left = operands.pop();
 
     double res;
@@ -82,22 +91,6 @@ void Expression::evalOperand(string operand) {
     operands.push(value);
 }
 
-void Expression::handleInvalidInfix(int tokenIndex) {
-    int i = tokenIndex;
-    string token = tokens[i];
-
-    if (isFunction(token)) {
-        if (i == tokens.size()-1 || tokens[i+1] != "(")
-            throwErr("Missing '(' after function call");
-
-    } else {
-        if (!isOperand(tokens[i-1]))
-            throwErr("Missing left hand of '" + token + "' operator");
-        else if (i == tokens.size()-1 || !isOperand(tokens[i-1]))
-            throwErr("Missing right hand of '" + token + "' operator");
-    }
-}
-
 Expression::Expression(string s) {
     input = s;
 
@@ -115,13 +108,16 @@ double Expression::evaluate() {
         string token = tokens[i];
 
         if (isOperator(token)) {
-            handleInvalidInfix(i);
-
             while (!operators.isEmpty() && prec(token) <= prec(operators.topValue())) {
                 evalInfix();
             }
             operators.push(token);
-            if (isFunction(token)) operands.push(0);
+            if (isFunction(token)) {
+                if (i == tokens.size()-1 || tokens[i+1] != "(")
+                    throwErr("Missing '(' after function call");
+
+                operands.push(0);
+            }
 
         } else if (isOperand(token)) {
             evalOperand(token);
