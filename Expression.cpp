@@ -45,8 +45,18 @@ void Expression::evalInfix() {
     if (op == "+") res = left + right;
     else if (op == "-") res = left - right;
     else if (op == "*") res = left * right;
-    else if (op == "/") res = left / right;
-    else if (op == "%") res = int(left) % int(right);
+    else if (op == "/") {
+        if (right == 0) {
+            throwErr("Cannot divide by zero");
+        }
+        res = left / right;
+    }
+    else if (op == "%") {
+        if (left != int(left) || right != int(right)) {
+            throwErr("Cannot take modulo of non-integer");
+        }
+        res = int(left) % int(right);
+    }
     else if (op == "^") res = pow(left, right);
     else if (op == "sqrt") res = sqrt(right);
     else if (op == "sin") res = sin(right);
@@ -72,6 +82,22 @@ void Expression::evalOperand(string operand) {
     operands.push(value);
 }
 
+void Expression::handleInvalidInfix(int tokenIndex) {
+    int i = tokenIndex;
+    string token = tokens[i];
+
+    if (isFunction(token)) {
+        if (i == tokens.size()-1 || tokens[i+1] != "(")
+            throwErr("Missing '(' after function call");
+
+    } else {
+        if (!isOperand(tokens[i-1]))
+            throwErr("Missing left hand of '" + token + "' operator");
+        else if (i == tokens.size()-1 || !isOperand(tokens[i-1]))
+            throwErr("Missing right hand of '" + token + "' operator");
+    }
+}
+
 Expression::Expression(string s) {
     input = s;
 
@@ -89,6 +115,8 @@ double Expression::evaluate() {
         string token = tokens[i];
 
         if (isOperator(token)) {
+            handleInvalidInfix(i);
+
             while (!operators.isEmpty() && prec(token) <= prec(operators.topValue())) {
                 evalInfix();
             }

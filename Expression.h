@@ -11,6 +11,7 @@ private:
     bool isOperand(string);
     bool isOperator(string);
 
+    void handleInvalidInfix(int tokenIndex);
     int prec(string);
     void evalInfix();
     void evalOperand(string);
