@@ -2,3 +2,5 @@ main
 main.exe
 .vscode/
 test.txt
+public/scripts/expression.js
+public/scripts/expression.wasm
