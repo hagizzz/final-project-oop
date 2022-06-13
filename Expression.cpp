@@ -38,15 +38,34 @@ int Expression::prec(string op) {
 
 void Expression::evalInfix() {
     string op = operators.pop();
+    if (op == "(") {
+        throwErr("token ')' is not found");
+    }
+    if (operands.isEmpty()) {
+        throwErr("Missing left hand of '" + op + "' operator");
+    }
     double right = operands.pop();
+    if (operands.isEmpty()) {
+        throwErr("Missing right hand of '" + op + "' operator");
+    }
     double left = operands.pop();
 
     double res;
     if (op == "+") res = left + right;
     else if (op == "-") res = left - right;
     else if (op == "*") res = left * right;
-    else if (op == "/") res = left / right;
-    else if (op == "%") res = int(left) % int(right);
+    else if (op == "/") {
+        if (right == 0) {
+            throwErr("Cannot divide by zero");
+        }
+        res = left / right;
+    }
+    else if (op == "%") {
+        if (left != int(left) || right != int(right)) {
+            throwErr("Cannot take modulo of non-integer");
+        }
+        res = int(left) % int(right);
+    }
     else if (op == "^") res = pow(left, right);
     else if (op == "sqrt") res = sqrt(right);
     else if (op == "sin") res = sin(right);
@@ -93,7 +112,12 @@ double Expression::evaluate() {
                 evalInfix();
             }
             operators.push(token);
-            if (isFunction(token)) operands.push(0);
+            if (isFunction(token)) {
+                if (i == tokens.size()-1 || tokens[i+1] != "(")
+                    throwErr("Missing '(' after function call");
+
+                operands.push(0);
+            }
 
         } else if (isOperand(token)) {
             evalOperand(token);
