@@ -10,14 +10,19 @@ using namespace std;
 
 int main() {
     string input;
-    cout << "Enter expression: ";
-    getline(cin, input);
+    cout << "Welcome to expression evaluator" << endl;
+    cout << "Type \"exit\" to escape the program" << endl;
+    while (input != "exit") {
+        cout << ">> ";
+        getline(cin, input);
 
-    Expression expr(input);
-    double value = expr.evaluate();
+        if (input == "exit") break;
 
-    cout << "Value: ";
-    printFormat(value);
+        Expression expr(input);
+        double value = expr.evaluate();
+        printFormat(value);
+    }
+    cout << "Goodbye!";
 
     return 0;
 }

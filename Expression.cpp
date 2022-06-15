@@ -98,7 +98,7 @@ Expression::Expression(string s) {
     tokens = p.parse();
 
     // Handle simple infix of expression
-    if ((tokens[0] == "+" || tokens[0] == "-") && tokens.size() > 1 && isNum(tokens[1])) {
+    if (tokens[0] == "+" || tokens[0] == "-") {
         tokens.insert(tokens.begin(), "0");
     }
 }
