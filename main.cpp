@@ -12,7 +12,7 @@ int main() {
     string input;
     cout << "Welcome to expression evaluator" << endl;
     cout << "Type \"exit\" to escape the program" << endl;
-    while (input != "exit") {
+    while (true) {
         cout << ">> ";
         getline(cin, input);
 

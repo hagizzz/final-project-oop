@@ -124,6 +124,9 @@ double Expression::evaluate() {
 
         } else if (token == "(") {
             operators.push(token);
+            
+            if (tokens[i+1] == "+" || tokens[i+1] == "-")
+                operands.push(0);
 
         } else if (token == ")") {
             while (operators.topValue() != "(") {
